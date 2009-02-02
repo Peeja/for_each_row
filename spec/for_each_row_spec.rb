@@ -8,14 +8,14 @@ describe ForEachRow do
   include ForEachRow
   
   it "should call the block once with each row" do
-    should_receive(:called_with).once.with(1, 2, 3)
-    should_receive(:called_with).once.with(5, 7, 12)
+    should_receive(:called_with).once.with("foo", "bar", "foobar")
+    should_receive(:called_with).once.with("baz", "bax", "bazbax")
     
-    for_each_row <<-TABLE do |number1, number2, sum|
-                             |1,       2,       3  |
-                             |5,       7,       12 |
+    for_each_row <<-TABLE do |string1, string2, full_string|
+                             |foo,     bar,     foobar     |
+                             |baz,     bax,     bazbax     |
                     TABLE
-      called_with(number1, number2, sum)
+      called_with(string1, string2, full_string)
     end
   end
 end
