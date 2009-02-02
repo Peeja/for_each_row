@@ -12,8 +12,8 @@ describe ForEachRow do
     should_receive(:called_with).once.with("baz", "bax", "bazbax")
     
     for_each_row <<-TABLE do |string1, string2, full_string|
-                             |foo,     bar,     foobar     |
-                             |baz,     bax,     bazbax     |
+                             |"foo",   "bar",   "foobar"   |
+                             |"baz",   "bax",   "bazbax"   |
                     TABLE
       called_with(string1, string2, full_string)
     end

@@ -10,7 +10,7 @@ module ForEachRow
   def for_each_row(table)
     table.split("\n").each do |line|
       if line.strip =~ /^\|(.*)\|$/
-        items = $1.split(",").map { |item| item.strip }
+        items = $1.split(",").map { |item| eval(item) }
         yield *items
       end
     end
