@@ -18,4 +18,25 @@ describe ForEachRow do
       called_with(string1, string2, full_string)
     end
   end
+  
+  describe "should interpret" do
+    def should_interpret(from, to)
+      should_receive(:called_with) { |value| value.should eql(to) }
+
+      for_each_row <<-TABLE do |value  |
+                               |#{from}|
+                      TABLE
+        called_with(value)
+      end
+    end
+    
+    specify "strings"  do should_interpret(%|"foo"|, "foo") end
+    specify "integers" do should_interpret(%|5|, 5) end
+    specify "floats"   do should_interpret(%|5.0|, 5.0) end
+    specify "symbols"  do should_interpret(%|:bar|, :bar) end
+    
+    specify "local varables"
+    specify "self"
+    specify "methods of self"
+  end
 end
