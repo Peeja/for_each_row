@@ -20,7 +20,7 @@ describe ForEachRow do
   end
   
   describe "should interpret" do
-    def should_interpret(from, to)
+    def should_interpret(from, to, some_local=nil)
       should_receive(:called_with) { |value| value.should eql(to) }
 
       for_each_row <<-TABLE do |value  |
@@ -35,8 +35,8 @@ describe ForEachRow do
     specify "floats"   do should_interpret(%|5.0|, 5.0) end
     specify "symbols"  do should_interpret(%|:bar|, :bar) end
     
-    specify "local varables"
-    specify "self"
-    specify "methods of self"
+    specify "local varables"  do should_interpret(%|some_local|, :bar, :bar) end
+    specify "self"            do should_interpret(%|self|, self) end
+    specify "methods of self" do should_interpret(%|object_id|, self.object_id) end
   end
 end

@@ -7,11 +7,11 @@ module ForEachRow
   #   (number2 + number2).should == sum
   # end
   
-  def for_each_row(table)
+  def for_each_row(table, &block)
     table.split("\n").each do |row|
       if row.strip =~ /^\|(.*)\|$/
-        cell_values = $1.split(",").map { |cell| eval(cell) }
-        yield *cell_values
+        cell_values = $1.split(",").map { |cell| eval(cell, block) }
+        block.call *cell_values
       end
     end
   end
