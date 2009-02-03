@@ -8,10 +8,10 @@ module ForEachRow
   # end
   
   def for_each_row(table)
-    table.split("\n").each do |line|
-      if line.strip =~ /^\|(.*)\|$/
-        items = $1.split(",").map { |item| eval(item) }
-        yield *items
+    table.split("\n").each do |row|
+      if row.strip =~ /^\|(.*)\|$/
+        cell_values = $1.split(",").map { |cell| eval(cell) }
+        yield *cell_values
       end
     end
   end
